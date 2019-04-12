@@ -1,7 +1,5 @@
 #include <string>
-
-namespace kaleidoscope
-{
+#include "../stubs/io.h"
 
 enum Token
 {
@@ -21,11 +19,11 @@ int get_tok()
 {
     static int LastChar = ' ';
     while(isspace(LastChar))
-        LastChar = getchar();
+        LastChar = GetChar();
 
     if(isalpha(LastChar)) {
         IdentifierStr = LastChar;
-        while(isalnum((LastChar = getchar())))
+        while(isalnum((LastChar = GetChar())))
             IdentifierStr += LastChar;
 
         if(IdentifierStr == "def")
@@ -37,7 +35,7 @@ int get_tok()
 
     if(LastChar == '#') {
         do
-            LastChar = getchar();
+            LastChar = GetChar();
         while (LastChar != EOF && LastChar != '\n' && LastChar != '\r');
 
         if(LastChar != EOF) {
@@ -48,12 +46,6 @@ int get_tok()
     if(LastChar == EOF)
         return tok_eof;
     int ThisChar = LastChar;
-    LastChar = getchar();
+    LastChar = GetChar();
     return ThisChar;
-}
-}
-
-int main(void){
-    printf("%d\n", kaleidoscope::get_tok());
-    return 0;
 }
